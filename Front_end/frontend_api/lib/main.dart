@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_api/screens/home.dart';
 
-import 'home.dart';
 
 void main() {
   runApp(AvaliaApp());
@@ -14,7 +14,6 @@ class AvaliaApp extends StatelessWidget {
       title: 'Avalia App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Colors.black,
       ),
       home: Home(),
