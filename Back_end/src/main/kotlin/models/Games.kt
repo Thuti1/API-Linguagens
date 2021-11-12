@@ -1,6 +1,7 @@
 package models
 
 data class Games (
-    val id_games:Int,
+    val id:Int,
     val name:String,
-    val developer:String,)
+    val desc:String,
+    val image:String,)

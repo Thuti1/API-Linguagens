@@ -12,14 +12,16 @@ class ReviewDAO : GenericDAO {
         //Cria um caminho para realizar queries sql no banco
         val sqlStatement = connection.createStatement()
         //Executa uma query de busca
-        val resultSet = sqlStatement.executeQuery("SELECT * FROM Review WHERE id_review == ${id};")
+        val resultSet = sqlStatement.executeQuery("SELECT * FROM Reviews WHERE id == ${id};")
         //Intera pelo resultado obtido
         var review : Review? = null
         while(resultSet.next()){
             review = Review(
-                resultSet.getInt("id_review"),
-                resultSet.getDouble("classification"),
-                resultSet.getString("comments"),
+                resultSet.getInt("id"),
+                resultSet.getInt("id_name"),
+                resultSet.getDouble("rating"),
+                resultSet.getString("comment"),
+                resultSet.getInt("id_game"),
             )
             println("Game found: ${review}")
         }
@@ -37,14 +39,16 @@ class ReviewDAO : GenericDAO {
         try {
             //Cria uma conexão com o banco
             connection = ConnectionDAO()
-            val resultSet = connection.executeQuery("SELECT * FROM Review;")
+            val resultSet = connection.executeQuery("SELECT * FROM Reviews;")
             //Intera pelo resultado obtido
             while (resultSet?.next()!!) {
                 review.add(
                     Review(
-                        resultSet.getInt("id_review"),
-                        resultSet.getDouble("classification"),
-                        resultSet.getString("comments"),
+                        resultSet.getInt("id"),
+                        resultSet.getInt("id_name"),
+                        resultSet.getDouble("rating"),
+                        resultSet.getString("comment"),
+                        resultSet.getInt("id_game"),
                     )
                 )
             }
@@ -62,13 +66,15 @@ class ReviewDAO : GenericDAO {
     override fun inserirUm(objeto: Any) {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
-            INSERT INTO Review
-            (classification, comments) 
-            VALUES (?,?);
+            INSERT INTO Reviews
+            (id_name, rating, comment, id_game ) 
+            VALUES (?,?,?,?);
             """.trimMargin())
         val review = objeto as Review
-        preparedStatement?.setDouble(1,review.classification)
-        preparedStatement?.setString(2,review.comments)
+        preparedStatement?.setInt(1,review.id_name)
+        preparedStatement?.setDouble(2,review.rating)
+        preparedStatement?.setString(3,review.comment)
+        preparedStatement?.setInt(4,review.id_game)
         preparedStatement?.executeUpdate()
         //Banco já está em modo auto-commit
         //connectionDAO.commit()
@@ -78,14 +84,16 @@ class ReviewDAO : GenericDAO {
     override fun inserirVarios(lista: List<Any>) {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
-            INSERT INTO Review
-            (classification,comments) 
-            VALUES (?,?);
+            INSERT INTO Reviews
+            (id_name, rating, comment, id_game ) 
+            VALUES (?,?,?,?);
             """.trimMargin())
         for (objeto in lista) {
             val review = objeto as Review
-            preparedStatement?.setDouble(1, review.classification)
-            preparedStatement?.setString(2, review.comments)
+            preparedStatement?.setInt(1,review.id_name)
+            preparedStatement?.setDouble(2,review.rating)
+            preparedStatement?.setString(3,review.comment)
+            preparedStatement?.setInt(4,review.id_game)
             preparedStatement?.executeUpdate()
             //Banco já está em modo auto-commit
             //connectionDAO.commit()
@@ -96,14 +104,15 @@ class ReviewDAO : GenericDAO {
     override fun atualizar(objeto: Any) {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
-            UPDATE Review 
-            SET classification = ?, comments = ? 
-            WHERE id_review = ?;
+            UPDATE Reviews 
+            SET id_name = ?, rating = ?, comment = ?, id_game = ?
+            WHERE id = ?;
             """.trimMargin())
         val review = objeto as Review
-        preparedStatement?.setInt(1,review.id_review)
-        preparedStatement?.setDouble(2, review.classification)
-        preparedStatement?.setString(3, review.comments)
+        preparedStatement?.setInt(1,review.id_name)
+        preparedStatement?.setDouble(2,review.rating)
+        preparedStatement?.setString(3,review.comment)
+        preparedStatement?.setInt(4,review.id_game)
         preparedStatement?.executeUpdate()
         //Banco já está em modo auto-commit
         //connectionDAO.commit()
@@ -113,8 +122,8 @@ class ReviewDAO : GenericDAO {
     override fun deletar(id: Int) {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
-            DELETE FROM Review  
-            WHERE id_review = ?;
+            DELETE FROM Reviews  
+            WHERE id = ?;
             """.trimMargin())
         preparedStatement?.setInt(1,id)
         preparedStatement?.executeUpdate()

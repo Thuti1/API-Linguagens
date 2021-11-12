@@ -1,7 +1,9 @@
 package models
 
 class Review (
-    val id_review:Int,
-    val classification:Double,
-    val comments:String
-    )
+    val id:Int,
+    val id_name:Int,
+    val rating:Double,
+    val comment:String,
+    val id_game:Int
+)

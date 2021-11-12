@@ -1,7 +1,7 @@
 package models
 
 class Users (
-    val id_user:Int,
-    val username:String,
-    val game_time:Double,
+    val id:Int,
+    val name:String,
+    val email:String,
 )

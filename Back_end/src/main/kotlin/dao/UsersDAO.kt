@@ -1,7 +1,7 @@
 package dao
 
 import models.Users
-import models.Rating
+//import models.Rating
 import shared.SharedPaths
 import java.sql.DriverManager
 
@@ -12,14 +12,14 @@ class UsersDAO : GenericDAO {
         //Cria um caminho para realizar queries sql no banco
         val sqlStatement = connection.createStatement()
         //Executa uma query de busca
-        val resultSet = sqlStatement.executeQuery("SELECT * FROM Users WHERE id_users == ${id};")
+        val resultSet = sqlStatement.executeQuery("SELECT * FROM Users WHERE id == ${id};")
         //Intera pelo resultado obtido
         var users : Users? = null
         while(resultSet.next()){
             users = Users(
-                resultSet.getInt("id_users"),
-                resultSet.getString("username"),
-                resultSet.getDouble("game_time")
+                resultSet.getInt("id"),
+                resultSet.getString("name"),
+                resultSet.getString("email")
             )
             println("Users Found: ${users}")
         }
@@ -41,9 +41,9 @@ class UsersDAO : GenericDAO {
             while (resultSet?.next()!!) {
                 users.add(
                     Users(
-                        resultSet.getInt("id_users"),
-                        resultSet.getString("username"),
-                        resultSet.getDouble("game_time")
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email")
                     )
                 )
             }
@@ -62,12 +62,12 @@ class UsersDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             INSERT INTO Users 
-            (username, game_time) 
+            (name, email) 
             VALUES (?,?);
             """.trimMargin())
         val users = objeto as Users
-        preparedStatement?.setString(1,users.username)
-        preparedStatement?.setDouble(2,users.game_time)
+        preparedStatement?.setString(1,users.name)
+        preparedStatement?.setString(2,users.email)
         preparedStatement?.executeUpdate()
         //Banco já está em modo auto-commit
         //connectionDAO.commit()
@@ -78,13 +78,13 @@ class UsersDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             INSERT INTO Users 
-            (username, game_time) 
+            (name, email) 
             VALUES (?,?);
             """.trimMargin())
         for (objeto in lista) {
             val users = objeto as Users
-            preparedStatement?.setString(1, users.username)
-            preparedStatement?.setDouble(2, users.game_time)
+            preparedStatement?.setString(1, users.name)
+            preparedStatement?.setString(2, users.email)
             preparedStatement?.executeUpdate()
             //Banco já está em modo auto-commit
             //connectionDAO.commit()
@@ -96,12 +96,12 @@ class UsersDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             UPDATE Users 
-            SET username = ?, game_time = ? 
-            WHERE id_users = ?;
+            SET name = ?, email = ? 
+            WHERE id = ?;
             """.trimMargin())
         val users = objeto as Users
-        preparedStatement?.setString(1,users.username)
-        preparedStatement?.setDouble(2, users.game_time)
+        preparedStatement?.setString(1,users.name)
+        preparedStatement?.setString(2, users.email)
         preparedStatement?.executeUpdate()
         //Banco já está em modo auto-commit
         //connectionDAO.commit()

@@ -1,24 +1,26 @@
 package dao
 
 import models.Games
+import shared.SharedPaths
 import shared.SharedPaths.Companion.STRING_DE_CONEXAO_JDBC
 import java.sql.DriverManager
 
 class GamesDAO : GenericDAO {
     override fun pegarUm(id: Int): Any {
         //Cria uma conexão com o banco
-        val connection = DriverManager.getConnection(STRING_DE_CONEXAO_JDBC)
+        val connection = DriverManager.getConnection(SharedPaths.STRING_DE_CONEXAO_JDBC)
         //Cria um caminho para realizar queries sql no banco
         val sqlStatement = connection.createStatement()
         //Executa uma query de busca
-        val resultSet = sqlStatement.executeQuery("SELECT * FROM Games WHERE id_games == ${id};")
+        val resultSet = sqlStatement.executeQuery("SELECT * FROM Games WHERE id == ${id};")
         //Intera pelo resultado obtido
         var games : Games? = null
         while(resultSet.next()){
             games = Games(
-                resultSet.getInt("id_games"),
+                resultSet.getInt("id"),
                 resultSet.getString("name"),
-                resultSet.getString("developer"),
+                resultSet.getString("desc"),
+                resultSet.getString("image"),
             )
             println("Game found: ${games}")
         }
@@ -41,9 +43,10 @@ class GamesDAO : GenericDAO {
             while (resultSet?.next()!!) {
                 games.add(
                     Games(
-                        resultSet.getInt("id_games"),
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getString("developer"),
+                        resultSet.getString("desc"),
+                        resultSet.getString("image"),
                     )
                 )
             }
@@ -62,12 +65,13 @@ class GamesDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             INSERT INTO Games 
-            (nome, valor) 
-            VALUES (?,?);
+            (name, desc, image) 
+            VALUES (?,?,?);
             """.trimMargin())
         val games = objeto as Games
         preparedStatement?.setString(1,games.name)
-        preparedStatement?.setString(2,games.developer)
+        preparedStatement?.setString(2,games.desc)
+        preparedStatement?.setString(3,games.image)
         preparedStatement?.executeUpdate()
         //Banco já está em modo auto-commit
         //connectionDAO.commit()
@@ -78,13 +82,14 @@ class GamesDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             INSERT INTO Games 
-            (name, delevoper) 
-            VALUES (?,?);
+            (name, desc, image) 
+            VALUES (?,?,?);
             """.trimMargin())
         for (objeto in lista) {
-            val produto = objeto as Games
-            preparedStatement?.setString(1, produto.name)
-            preparedStatement?.setString(2, produto.developer)
+            val games = objeto as Games
+            preparedStatement?.setString(1, games.name)
+            preparedStatement?.setString(2,games.desc)
+            preparedStatement?.setString(3, games.image)
             preparedStatement?.executeUpdate()
             //Banco já está em modo auto-commit
             //connectionDAO.commit()
@@ -96,13 +101,14 @@ class GamesDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             UPDATE Games 
-            SET name = ?, developer = ? 
-            WHERE id_games = ?;
+            SET name = ?, desc = ?, image = ? 
+            WHERE id = ?;
             """.trimMargin())
         val game = objeto as Games
-        preparedStatement?.setInt(1,game.id_games)
+        preparedStatement?.setInt(1,game.id)
         preparedStatement?.setString(2,game.name)
-        preparedStatement?.setString(3,game.developer)
+        preparedStatement?.setString(3,game.desc)
+        preparedStatement?.setString(4,game.image)
         preparedStatement?.executeUpdate()
         //Banco já está em modo auto-commit
         //connectionDAO.commit()
@@ -113,7 +119,7 @@ class GamesDAO : GenericDAO {
         val connectionDAO = ConnectionDAO()
         val preparedStatement = connectionDAO.getPreparedStatement("""
             DELETE FROM Games  
-            WHERE id_games = ?;
+            WHERE id = ?;
             """.trimMargin())
         preparedStatement?.setInt(1,id)
         preparedStatement?.executeUpdate()
