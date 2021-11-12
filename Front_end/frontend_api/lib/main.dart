@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_api/screens/home.dart';
+import 'package:frontend_api/screens/login.dart';
+import 'package:frontend_api/screens/new_account.dart';
+import 'package:frontend_api/widgets/slide_images.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 void main() {
@@ -11,12 +15,14 @@ class AvaliaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'Avalia App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.black,
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
       ),
-      home: Home(),
+      home: Login(),
     );
   }
 }

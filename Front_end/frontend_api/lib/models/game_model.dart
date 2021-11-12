@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Game {
@@ -10,6 +9,5 @@ class Game {
     required this.name,
     required this.imageUrl,
     required this.description,
-
   });
 }
