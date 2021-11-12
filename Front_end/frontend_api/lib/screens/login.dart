@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:frontend_api/screens/home.dart';
+import 'package:frontend_api/screens/new_account.dart';
+import 'package:frontend_api/widgets/form_login.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,15 +18,17 @@ class Login extends StatelessWidget {
               .size
               .width / 4),
           children: [
-            Body(),
+            BodyLogin(),
           ],
         )
     );
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+class BodyLogin extends StatelessWidget {
+  const BodyLogin({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +60,10 @@ class Body extends StatelessWidget {
                       color: Colors.lightBlueAccent,
                       fontWeight: FontWeight.bold),),
                   onTap: () {
-                    print(MediaQuery
-                        .of(context)
-                        .size
-                        .width);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>NewAccount()),
+                    );
                   },),
               ],),
               SizedBox(height: 30,),
@@ -84,81 +88,6 @@ class Body extends StatelessWidget {
 }
 
 
-class FormLogin extends StatelessWidget {
-  //const formLogin({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return  Column(
-      children: [
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Coloque seu email',
-            fillColor: Colors.white,
-            filled: true,
-            labelStyle: TextStyle(fontSize: 12,),
-            contentPadding: EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        SizedBox(height: 30,),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Coloque seu Usúario',
-            fillColor: Colors.white,
-            filled: true,
-            labelStyle: TextStyle(fontSize: 12,),
-            contentPadding: EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        SizedBox(height: 40,),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.deepPurple,
-                  spreadRadius: 10,
-                  blurRadius: 20,
-                )
-              ]
-          ), child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-              primary: Colors.deepPurple,
-              onPrimary: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              )), child: Container(
-          width: double.infinity,
-          height: 50,
-          child: Center(child: Text('Logar')),
-        ),),
-        )
-      ],
-    );
-  }
-}
 
 

@@ -29,9 +29,7 @@ class _HomeState extends State<Home> {
                   SlideImages(
                     currentGame: previews[0],
                   ),
-                  SlideImages(
-                    currentGame: previews[1],
-                  ),
+
                   Container(
                     margin: EdgeInsets.only(
                         top: smallScreenGrid ? 70.0 : 40.0,

@@ -18,7 +18,6 @@ class AvaliaApp extends StatelessWidget {
 
       title: 'Avalia App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.black,
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
       ),

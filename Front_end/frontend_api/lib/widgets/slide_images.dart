@@ -65,7 +65,7 @@ class SlideHeader extends StatelessWidget {
                   child: Container(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
+                        primary: Colors.deepPurple,
                         elevation: 0.0,
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(25.0),
