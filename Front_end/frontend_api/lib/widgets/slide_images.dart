@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:frontend_api/data/data.dart';
 import 'package:frontend_api/models/game_model.dart';
+import 'package:frontend_api/screens/home.dart';
+import 'package:frontend_api/screens/reviews.dart';
 
 class SlideImages extends StatefulWidget {
   SlideImages({Key? key,required this.currentGame}) : super(key: key);
@@ -35,15 +37,15 @@ class _SlideImagesState extends State<SlideImages> {
   }
 }
 class SlideHeader extends StatelessWidget {
-  const SlideHeader({Key? key, required this.game}) : super(key: key);
-  final Game game;
+  const SlideHeader({Key? key, required this.currentGame}) : super(key: key);
+  final Game currentGame;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
       child: Stack(
         children: <Widget>[
-          Opacity(child: Image.network(game.imageUrl, fit: BoxFit.cover, width: 1000.0,),opacity: 0.80,),
+          Opacity(child: Image.network(currentGame.imageUrl, fit: BoxFit.cover, width: 1000.0,),opacity: 0.80,),
           Positioned(
             bottom: 300.0,
             left: 150.0,
@@ -51,7 +53,7 @@ class SlideHeader extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  game.description,
+                  currentGame.description,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
@@ -72,7 +74,10 @@ class SlideHeader extends StatelessWidget {
                         ),
                         padding: EdgeInsets.all(18.0),
                       ),
-                      onPressed: () {},
+                      onPressed: () {Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ReviewsScreen()),
+                      );},
                       child: Padding(
                         padding: EdgeInsets.only(
                             left: 30.0, top: 0.0, right: 30.0, bottom: 0.0),

@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
     var smallScreenGrid = currentWidth > 1201;
 
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: HomeAppBar(),
       body: Container(
         child: Stack(
           alignment: Alignment.topLeft,
@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SlideImages(
-                    currentGame: previews[0],
+                    currentGame: games[0],
                   ),
 
                   Container(

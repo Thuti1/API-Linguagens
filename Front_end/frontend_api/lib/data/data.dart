@@ -1,9 +1,12 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_api/models/game_model.dart';
+import 'package:frontend_api/models/review_model.dart';
+import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/widgets/slide_images.dart';
 
-final List<Game> previews = const [
+final List<Game> games = const [
   Game(
     name: 'Free Fire',
     imageUrl:
@@ -24,8 +27,22 @@ final List<Game> previews = const [
   ),
 ];
 
+final List<User> users = const [
+  User(name: 'André', email: 'socorro@gmail'),
+  User(name: 'Giovani', email: 'ajuda@hotmail'),
+  User(name: 'Arthur',email: 'fudeu@yahoo'),
+
+];
+
+final List<Review> reviews =  [
+  Review(name: users[0].name, classification: 3.5, comments: 'uau\nuau\nuau', game: games[0]),
+  Review(name: users[1].name, classification: 5.0, comments: 'O MELHOR DE TODOS', game: games[0]),
+  Review(name: users[2].name, classification: 1.4, comments: 'o pior ja jogado', game: games[0]),
+];
+
+
 final List<Widget> sliders = [
-  SlideHeader(game: previews[0]),
-  SlideHeader(game: previews[1]),
-  SlideHeader(game: previews[2]),
+  SlideHeader(currentGame: games[0]),
+  SlideHeader(currentGame: games[1]),
+  SlideHeader(currentGame: games[2]),
 ];

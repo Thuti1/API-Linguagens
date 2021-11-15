@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_api/screens/login.dart';
-import 'package:frontend_api/widgets/form_login.dart';
+import 'package:frontend_api/widgets/form.dart';
 
 class NewAccount extends StatelessWidget {
   const NewAccount({Key? key}) : super(key: key);

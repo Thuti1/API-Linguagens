@@ -10,4 +10,9 @@ class Game {
     required this.imageUrl,
     required this.description,
   });
+
+  @override
+  String toString() {
+    return 'Game{name: $name, imageUrl: $imageUrl, description: $description}';
+  }
 }
