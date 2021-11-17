@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:frontend_api/data/data.dart';
 import 'package:frontend_api/models/game_model.dart';
+import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
 import 'package:frontend_api/screens/reviews.dart';
 
 class SlideImages extends StatefulWidget {
-  SlideImages({Key? key,required this.currentGame}) : super(key: key);
-  Game currentGame;
+  SlideImages({Key? key,}) : super(key: key);
+
   @override
   _SlideImagesState createState() => _SlideImagesState();
 }
@@ -37,8 +38,13 @@ class _SlideImagesState extends State<SlideImages> {
   }
 }
 class SlideHeader extends StatelessWidget {
-  const SlideHeader({Key? key, required this.currentGame}) : super(key: key);
-  final Game currentGame;
+  //const SlideHeader({Key? key, required this.currentGame}) : super(key: key);
+   Game currentGame;
+
+
+
+   SlideHeader(this.currentGame);
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/new_account.dart';
 import 'package:frontend_api/screens/new_review.dart';
+import 'package:frontend_api/widgets/form.dart';
 
 class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
-  const HomeAppBar({Key? key}) : super(key: key);
+  const HomeAppBar({Key? key, required this.username}) : super(key: key);
 
+  final String username;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -15,17 +18,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
         style: TextStyle(fontSize: 18.0, fontFamily: 'Sans Serif'),
       ),
       actions: [
-        IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewAccount()),
-              );
-            },tooltip: 'Crie uma nova conta',
-            icon: Icon(Icons.person_add)),
-        SizedBox(
-          width: 30.0,
-        ),
+        Center(child: Text("Seja bem vindo $username !!")),
         SizedBox(width: 30,),
       ],
     );
@@ -37,7 +30,11 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
 }
 
 class ReviewAppBar extends StatelessWidget with PreferredSizeWidget {
-  const ReviewAppBar({Key? key}) : super(key: key);
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {

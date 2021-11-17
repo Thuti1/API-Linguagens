@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_api/constants/constants.dart';
 import 'package:frontend_api/screens/login.dart';
 import 'package:frontend_api/widgets/form.dart';
 
@@ -24,6 +25,8 @@ class NewAccount extends StatelessWidget {
 
 class BodyAccount extends StatelessWidget {
   const BodyAccount({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,7 @@ class BodyAccount extends StatelessWidget {
               ],),
               SizedBox(height: 30,),
               Image.network(
-                'https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png',
+                logoAccount,
                 width: 150,),
             ],
           ),
@@ -72,7 +75,7 @@ class BodyAccount extends StatelessWidget {
               .height / 6),
           child: Container(
             width: 320,
-            child: FormLogin(),
+            child: FormLogin('Coloque seu email ', 'Coloque seu User','Criar Conta',),
           ),),
       ],
     );

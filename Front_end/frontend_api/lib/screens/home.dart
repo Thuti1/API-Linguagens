@@ -1,60 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_api/data/data.dart';
+import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/widgets/appbar.dart';
+import 'package:frontend_api/widgets/form.dart';
 import 'package:frontend_api/widgets/slide_images.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
 
-  @override
-  _HomeState createState() => _HomeState();
-}
+  final User currentUser;
+  Home(this.currentUser);
 
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var currentWidth = MediaQuery.of(context).size.width;
     var smallScreenGrid = currentWidth > 1201;
 
+
     return Scaffold(
-      appBar: HomeAppBar(),
-      body: Container(
-        child: Stack(
+      appBar: HomeAppBar(username: currentUser.name,),
+      body: ListView(
+        children: [Stack(
           alignment: Alignment.topLeft,
           children: [
             SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  SlideImages(
-                    currentGame: games[0],
-                  ),
+                  SlideImages(),
 
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: smallScreenGrid ? 70.0 : 40.0,
-                        bottom: smallScreenGrid ? 70.0 : 40.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: smallScreenGrid ? 2.0 : 1.0,
-                          width: smallScreenGrid ? 150.0 : 80.0,
-                          color: Colors.black,
-                        ),
-                        Container(
-                          height: smallScreenGrid ? 2.0 : 1.0,
-                          width: smallScreenGrid ? 150.0 : 80.0,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
           ],
-        ),
+        ),]
       ),
     );
   }

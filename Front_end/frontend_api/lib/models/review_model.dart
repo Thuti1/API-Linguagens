@@ -4,7 +4,7 @@ import 'game_model.dart';
 
 class Review {
   final String name;
-  final double classification;
+  final double? classification;
   final String comments;
   final Game game;
 

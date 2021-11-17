@@ -1,33 +1,31 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:frontend_api/constants/constants.dart';
+import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
 import 'package:frontend_api/screens/new_account.dart';
 import 'package:frontend_api/widgets/form.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery
-              .of(context)
-              .size
-              .width / 4),
-          children: [
-            BodyLogin(),
-          ],
+        body: Form(
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery
+                .of(context)
+                .size
+                .width / 4),
+            children: [
+              BodyLogin(),
+            ],
+          ),
         )
     );
   }
 }
 
 class BodyLogin extends StatelessWidget {
-  const BodyLogin({Key? key}) : super(key: key);
-
 
 
   @override
@@ -60,15 +58,12 @@ class BodyLogin extends StatelessWidget {
                       color: Colors.lightBlueAccent,
                       fontWeight: FontWeight.bold),),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>NewAccount()),
-                    );
+                   _showNewAccount(context);
                   },),
               ],),
               SizedBox(height: 30,),
               Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Video-Game-Controller-Icon-IDV-green.svg/1024px-Video-Game-Controller-Icon-IDV-green.svg.png',
+                logoLogin,
                 width: 150,),
             ],
           ),
@@ -80,9 +75,15 @@ class BodyLogin extends StatelessWidget {
               .height / 6),
           child: Container(
             width: 320,
-            child: FormLogin(),
+            child: FormLogin('Coloque seu email','Coloque seu User','Logar',),
           ),),
       ],
+    );
+  }
+  void _showNewAccount(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NewAccount()),
     );
   }
 }

@@ -42,7 +42,7 @@ final List<Review> reviews =  [
 
 
 final List<Widget> sliders = [
-  SlideHeader(currentGame: games[0]),
-  SlideHeader(currentGame: games[1]),
-  SlideHeader(currentGame: games[2]),
+  SlideHeader( games[0]),
+  SlideHeader( games[1]),
+  SlideHeader( games[2]),
 ];

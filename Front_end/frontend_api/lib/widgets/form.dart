@@ -1,48 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:frontend_api/data/data.dart';
+import 'package:frontend_api/models/game_model.dart';
+import 'package:frontend_api/models/review_model.dart';
+import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
+import 'package:frontend_api/screens/reviews.dart';
+import 'package:frontend_api/widgets/textbox.dart';
+
+
 
 class FormLogin extends StatelessWidget {
-  //const formLogin({Key? key}) : super(key: key);
+
+  
+  final String hintText1;
+  final String hintText2;
+  final String buttom;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController userController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Coloque seu email',
-            fillColor: Colors.white,
-            filled: true,
-            labelStyle: TextStyle(fontSize: 12,),
-            contentPadding: EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
+        TextCustomBox(emailController, hintText1),
         SizedBox(height: 30,),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Coloque seu Usúario',
-            fillColor: Colors.white,
-            filled: true,
-            labelStyle: TextStyle(fontSize: 12,),
-            contentPadding: EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
+        TextCustomBox(userController, hintText2),
         SizedBox(height: 40,),
         Container(
           decoration: BoxDecoration(
@@ -57,9 +43,11 @@ class FormLogin extends StatelessWidget {
               ]
           ), child: ElevatedButton(
           onPressed: () {
+            final User _currentUser = User(name: userController.text, email: emailController.text);
+            //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Home()),
+              MaterialPageRoute(builder: (context) => Home( _currentUser)),
             );
           },
           style: ElevatedButton.styleFrom(
@@ -70,57 +58,44 @@ class FormLogin extends StatelessWidget {
               )), child: Container(
           width: double.infinity,
           height: 50,
-          child: Center(child: Text('Logar')),
+          child: Center(child: Text(buttom)),
         ),),
         )
       ],
     );
+
   }
+  void showHomePage(BuildContext context) {
+    final User currentUser = User(name: userController.text, email: emailController.text);
+    //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Home( currentUser)),
+    );
+
+  }
+
+  FormLogin(this.hintText1, this.hintText2, this.buttom);
 }
 
 class FormReview extends StatelessWidget {
-  const FormReview({Key? key}) : super(key: key);
+
+
+  User currentUser;
+  Game currentGame;
+  FormReview(this.currentUser, this.currentGame);
+
+  final classificationController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            hintText: 'Sua nota de 0 - 5',
-            fillColor: Colors.white,
-            filled: true,
-            labelStyle: TextStyle(fontSize: 12,),
-            contentPadding: EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
+        NumberCustomBox(classificationController,'De sua nota de 0 - 5'),
         SizedBox(height: 30,),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Comente',
-            fillColor: Colors.white,
-            filled: true,
-            labelStyle: TextStyle(fontSize: 12,),
-            contentPadding: EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
+        TextCustomBox(descriptionController, 'Comente algo..'),
         SizedBox(height: 40,),
         Container(
           decoration: BoxDecoration(
@@ -134,12 +109,7 @@ class FormReview extends StatelessWidget {
                 )
               ]
           ), child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-            );
-          },
+          onPressed: () {showReviewsPage(context);},
           style: ElevatedButton.styleFrom(
               primary: Colors.deepPurple,
               onPrimary: Colors.white,
@@ -154,4 +124,17 @@ class FormReview extends StatelessWidget {
       ],
     );
   }
+  void showReviewsPage(BuildContext context) {
+    Review currentReview = Review(
+        name:currentUser.name,
+        classification: double.tryParse(classificationController.text),
+        comments: descriptionController.text,
+        game: currentGame);
+   if(!reviews.contains(currentUser)) {reviews.add(currentReview);print("Review adicionada");}
+    Navigator.pop(context);
+  }
+
+
+
+
 }
