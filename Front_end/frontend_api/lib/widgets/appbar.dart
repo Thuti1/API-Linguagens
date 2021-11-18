@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_api/models/user_model.dart';
+import 'package:frontend_api/screens/login.dart';
 import 'package:frontend_api/screens/new_account.dart';
 import 'package:frontend_api/screens/new_review.dart';
 import 'package:frontend_api/widgets/form.dart';
 
 class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
-  const HomeAppBar({Key? key, required this.username}) : super(key: key);
+  const HomeAppBar({Key? key,}) : super(key: key);
 
-  final String username;
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -18,8 +19,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
         style: TextStyle(fontSize: 18.0, fontFamily: 'Sans Serif'),
       ),
       actions: [
-        Center(child: Text("Seja bem vindo $username !!")),
-        SizedBox(width: 30,),
+
       ],
     );
   }
@@ -50,7 +50,7 @@ class ReviewAppBar extends StatelessWidget with PreferredSizeWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NewReview()),
+                MaterialPageRoute(builder: (context) => Login()),
               );
             },tooltip: 'Crie uma nova review',
             icon: Icon(Icons.reviews)),

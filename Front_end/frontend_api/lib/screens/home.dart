@@ -7,8 +7,7 @@ import 'package:frontend_api/widgets/slide_images.dart';
 
 class Home extends StatelessWidget {
 
-  final User currentUser;
-  Home(this.currentUser);
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class Home extends StatelessWidget {
 
 
     return Scaffold(
-      appBar: HomeAppBar(username: currentUser.name,),
+      appBar: HomeAppBar(),
       body: ListView(
         children: [Stack(
           alignment: Alignment.topLeft,

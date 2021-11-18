@@ -7,6 +7,7 @@ import 'package:frontend_api/data/data.dart';
 import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
+import 'package:frontend_api/screens/login.dart';
 import 'package:frontend_api/screens/reviews.dart';
 
 class SlideImages extends StatefulWidget {

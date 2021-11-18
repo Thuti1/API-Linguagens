@@ -75,7 +75,7 @@ class BodyLogin extends StatelessWidget {
               .height / 6),
           child: Container(
             width: 320,
-            child: FormLogin('Coloque seu email','Coloque seu User','Logar',),
+            child: FormLogin(),
           ),),
       ],
     );

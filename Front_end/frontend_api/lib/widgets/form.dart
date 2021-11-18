@@ -6,6 +6,8 @@ import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/review_model.dart';
 import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
+import 'package:frontend_api/screens/login.dart';
+import 'package:frontend_api/screens/new_review.dart';
 import 'package:frontend_api/screens/reviews.dart';
 import 'package:frontend_api/widgets/textbox.dart';
 
@@ -14,10 +16,6 @@ import 'package:frontend_api/widgets/textbox.dart';
 class FormLogin extends StatelessWidget {
 
   
-  final String hintText1;
-  final String hintText2;
-  final String buttom;
-
   TextEditingController emailController = TextEditingController();
   TextEditingController userController = TextEditingController();
 
@@ -26,9 +24,9 @@ class FormLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextCustomBox(emailController, hintText1),
+        TextCustomBox(emailController, 'Coloque seu email'),
         SizedBox(height: 30,),
-        TextCustomBox(userController, hintText2),
+        TextCustomBox(userController, 'Coloque seu usuario'),
         SizedBox(height: 40,),
         Container(
           decoration: BoxDecoration(
@@ -45,10 +43,7 @@ class FormLogin extends StatelessWidget {
           onPressed: () {
             final User _currentUser = User(name: userController.text, email: emailController.text);
             //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Home( _currentUser)),
-            );
+            showNewReviewPage(context);
           },
           style: ElevatedButton.styleFrom(
               primary: Colors.deepPurple,
@@ -58,25 +53,70 @@ class FormLogin extends StatelessWidget {
               )), child: Container(
           width: double.infinity,
           height: 50,
-          child: Center(child: Text(buttom)),
+          child: Center(child: Text('Entrar')),
         ),),
         )
       ],
     );
 
   }
-  void showHomePage(BuildContext context) {
+  void showNewReviewPage(BuildContext context) {
     final User currentUser = User(name: userController.text, email: emailController.text);
     //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
-
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Home( currentUser)),
+      MaterialPageRoute(builder: (context) => NewReview(currentUser: currentUser,)),
     );
 
   }
+  
+}
 
-  FormLogin(this.hintText1, this.hintText2, this.buttom);
+class FormNewAccount extends StatelessWidget {
+  
+
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController userController = TextEditingController();
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextCustomBox(emailController, 'Email que deseja cadastrar'),
+        SizedBox(height: 30,),
+        TextCustomBox(userController, 'Crie seu usuario'),
+        SizedBox(height: 40,),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.deepPurple,
+                  spreadRadius: 10,
+                  blurRadius: 20,
+                )
+              ]
+          ), child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: ElevatedButton.styleFrom(
+              primary: Colors.deepPurple,
+              onPrimary: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              )), child: Container(
+          width: double.infinity,
+          height: 50,
+          child: Center(child: Text('Criar')),
+        ),),
+        )
+      ],
+    );
+  }
+  
 }
 
 class FormReview extends StatelessWidget {
@@ -131,7 +171,10 @@ class FormReview extends StatelessWidget {
         comments: descriptionController.text,
         game: currentGame);
    if(!reviews.contains(currentUser)) {reviews.add(currentReview);print("Review adicionada");}
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReviewsScreen()),
+    );
   }
 
 

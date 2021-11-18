@@ -21,7 +21,7 @@ class AvaliaApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
       ),
-      home: Login(),
+      home: Home(),
     );
   }
 }
