@@ -19,6 +19,8 @@ class FormLogin extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController userController = TextEditingController();
 
+  Game currentGame;
+  FormLogin(this.currentGame);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,7 @@ class FormLogin extends StatelessWidget {
     //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => NewReview(currentUser: currentUser,)),
+      MaterialPageRoute(builder: (context) => NewReview(currentUser: currentUser,currentGame: currentGame,)),
     );
 
   }
@@ -173,7 +175,7 @@ class FormReview extends StatelessWidget {
    if(!reviews.contains(currentUser)) {reviews.add(currentReview);print("Review adicionada");}
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ReviewsScreen()),
+      MaterialPageRoute(builder: (context) => ReviewsScreen(currentGame: currentGame,)),
     );
   }
 
@@ -181,3 +183,61 @@ class FormReview extends StatelessWidget {
 
 
 }
+
+class FormNewGame extends StatelessWidget {
+  TextEditingController gameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController urlController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextCustomBox(gameController, 'Nome do jogo'),
+        SizedBox(height: 30,),
+        TextCustomBox(descriptionController, 'Descricao do Jogo'),
+        SizedBox(height: 30,),
+        TextCustomBox(urlController, 'Icone do jogo(url)'),
+        SizedBox(height: 40,),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.deepPurple,
+                  spreadRadius: 10,
+                  blurRadius: 20,
+                )
+              ]
+          ), child: ElevatedButton(
+          onPressed: () {
+            showHomePage(context);
+          },
+          style: ElevatedButton.styleFrom(
+              primary: Colors.deepPurple,
+              onPrimary: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              )), child: Container(
+          width: double.infinity,
+          height: 50,
+          child: Center(child: Text('Adicionar')),
+        ),),
+        )
+      ],
+    );
+  }
+  void showHomePage(BuildContext context){
+    Game currentGame = Game(
+        name:gameController.text,
+        description: descriptionController.text,
+        imageUrl: urlController.text);
+    if(!games.contains(currentGame)) {games.add(currentGame);print("Game adicionado");}
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Home()),
+    );
+  }
+}
+

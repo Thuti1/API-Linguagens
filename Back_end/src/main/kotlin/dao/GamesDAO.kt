@@ -8,7 +8,7 @@ import java.sql.DriverManager
 class GamesDAO : GenericDAO {
     override fun pegarUm(id: Int): Any {
         //Cria uma conexão com o banco
-        val connection = DriverManager.getConnection(SharedPaths.STRING_DE_CONEXAO_JDBC)
+        val connection = DriverManager.getConnection(STRING_DE_CONEXAO_JDBC)
         //Cria um caminho para realizar queries sql no banco
         val sqlStatement = connection.createStatement()
         //Executa uma query de busca

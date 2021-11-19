@@ -10,14 +10,14 @@ class NewAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        body: ListView(
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: MediaQuery
               .of(context)
               .size
               .width / 6),
-          children: [
+          child:
             BodyAccount(),
-          ],
+
         )
     );
   }

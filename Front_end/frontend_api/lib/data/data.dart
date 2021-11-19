@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/review_model.dart';
 import 'package:frontend_api/models/user_model.dart';
-import 'package:frontend_api/widgets/slide_images.dart';
 
-final List<Game> games = const [
+
+final List<Game> games =  [
   Game(
     name: 'Free Fire',
     imageUrl:
@@ -41,8 +41,4 @@ final List<Review> reviews =  [
 ];
 
 
-final List<Widget> sliders = [
-  SlideHeader( games[0]),
-  SlideHeader( games[1]),
-  SlideHeader( games[2]),
-];
+

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/login.dart';
 import 'package:frontend_api/screens/new_account.dart';
+import 'package:frontend_api/screens/new_game.dart';
 import 'package:frontend_api/screens/new_review.dart';
 import 'package:frontend_api/widgets/form.dart';
 
@@ -20,7 +22,13 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       actions: [
 
+        IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => NewGame()),
+          );
+        }, icon: Icon(Icons.add),tooltip: 'Adicione um novo jogo',),
+        SizedBox(width: 40,),
       ],
+
     );
   }
 
@@ -31,16 +39,18 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
 
 class ReviewAppBar extends StatelessWidget with PreferredSizeWidget {
 
-
-
-
-
+  Game currentGame;
+  ReviewAppBar(this.currentGame);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.deepPurple,
-      leading: Icon(Icons.grade),
+      leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },tooltip: 'Crie uma nova review',
+          icon: Icon(Icons.arrow_back)),
       title: Text(
         'Reviews',
         style: TextStyle(fontSize: 18.0, fontFamily: 'Sans Serif'),
@@ -50,7 +60,7 @@ class ReviewAppBar extends StatelessWidget with PreferredSizeWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Login()),
+                MaterialPageRoute(builder: (context) => Login(currentGame)),
               );
             },tooltip: 'Crie uma nova review',
             icon: Icon(Icons.reviews)),

@@ -5,28 +5,48 @@ import models.Games
 import models.Review
 import models.Users
 import java.sql.DriverManager
+import io.ktor.server.netty.*
+import plugins.*
+import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.serialization.*
+import io.ktor.server.engine.*
 
 fun main(args: Array<String>) {
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+        //Instala as dependencias para utilizar o objeto JSON
+
+        install(ContentNegotiation){
+            json()
+        }
+//        val gamesDao = GamesDAO()
+//        gamesDao.inserirUm(Games(3, "limao", "uma fruta verde", "LMAO.lol"))
+        configureRouting()
+    }.start(wait = true)
     //Cria um DAO para os produtos
-    val gamesDao = GamesDAO()
+//    val gamesDao = GamesDAO()
 //    gamesDao.deletar(3)
 //    gamesDao.deletar(4)
 
-//    gamesDao.inserirUm(Games(3, "banana", "uma fruta", "fodase.png"))
+//    gamesDao.inserirUm(Games(3, "melancia", "uma fruta grande", "melan.cia"))
 //    var games = gamesDao.pegarTodosSeguro()
 //    for (game in games){
 //        println(game)
 //    }
     val userDao = UsersDAO()
-//    userDao.inserirUm(Users(1, "bob", "bob@BOBO"))
+//    userDao.inserirUm(Users(1, "max", "max@MAX"))
     val reviewDao = ReviewDAO()
 //    reviewDao.deletar(1)
 //    reviewDao.deletar(2)
-//    reviewDao.inserirUm(Review(2, 1, 5.7, "Bem ruim", 5))
-//    var games = GamesDAO.pegarTodosSeguro()
-//    for (game in games){
-//        println(game)
- //   }
+//    reviewDao.inserirUm(Review(2, 2, 10.01, "Bom Demais", 6))
+//    var users = userDao.pegarTodosSeguro()
+//    for (user in users){
+//        println(user)
+//    }
+//    var reviews = reviewDao.pegarTodosSeguro()
+//    for (review in reviews){
+//        println(review)
+//    }
     //gamesDao.atualizar(Games(8,"Samsung",350.0,2))
     //var games = GamesDAO.pegarTodosSeguro()
     //Intera pelo resultado obtido

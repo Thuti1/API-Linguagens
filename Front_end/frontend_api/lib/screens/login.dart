@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_api/constants/constants.dart';
+import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
 import 'package:frontend_api/screens/new_account.dart';
 import 'package:frontend_api/widgets/form.dart';
 
 class Login extends StatelessWidget {
+
+  Game currentGame;
+  Login(this.currentGame);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
         body: Form(
-          child: ListView(
+          child: Container(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery
                 .of(context)
                 .size
                 .width / 4),
-            children: [
-              BodyLogin(),
-            ],
+            child:
+              BodyLogin(currentGame),
+
           ),
         )
     );
@@ -27,6 +32,8 @@ class Login extends StatelessWidget {
 
 class BodyLogin extends StatelessWidget {
 
+  Game currentGame;
+  BodyLogin(this.currentGame);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +82,7 @@ class BodyLogin extends StatelessWidget {
               .height / 6),
           child: Container(
             width: 320,
-            child: FormLogin(),
+            child: FormLogin(currentGame),
           ),),
       ],
     );

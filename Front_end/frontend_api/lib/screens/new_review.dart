@@ -2,28 +2,30 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_api/constants/constants.dart';
 import 'package:frontend_api/data/data.dart';
+import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/user_model.dart';
 import 'package:frontend_api/screens/home.dart';
 import 'package:frontend_api/widgets/form.dart';
-import 'package:frontend_api/widgets/slide_images.dart';
+
 
 class NewReview extends StatelessWidget {
-   const NewReview({Key? key, required this.currentUser}) : super(key: key);
+   const NewReview({Key? key, required this.currentUser, required this.currentGame}) : super(key: key);
 
   final User currentUser;
+  final Game currentGame;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        body: ListView(
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: MediaQuery
               .of(context)
               .size
               .width / 6),
-          children: [
-            BodyReview(currentUser),
-          ],
+          child:
+            BodyReview(currentUser,currentGame),
+
         )
     );
   }
@@ -32,9 +34,11 @@ class NewReview extends StatelessWidget {
 class BodyReview extends StatelessWidget {
 
   User currentUser;
+  Game currentGame;
 
 
-  BodyReview(this.currentUser);
+  BodyReview(this.currentUser, this.currentGame);
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,7 @@ class BodyReview extends StatelessWidget {
               .height / 6),
           child: Container(
             width: 320,
-            child:FormReview(currentUser,games[0]),
+            child:FormReview(currentUser,currentGame),
           ),),
       ],
     );

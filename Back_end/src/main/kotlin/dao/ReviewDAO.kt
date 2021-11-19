@@ -44,11 +44,11 @@ class ReviewDAO : GenericDAO {
             while (resultSet?.next()!!) {
                 review.add(
                     Review(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_name"),
-                        resultSet.getDouble("rating"),
-                        resultSet.getString("comment"),
-                        resultSet.getInt("id_game"),
+                          resultSet.getInt("id"),
+                          resultSet.getInt("id_name"),
+                          resultSet.getDouble("rating"),
+                          resultSet.getString("comment"),
+                          resultSet.getInt("id_game"),
                     )
                 )
             }

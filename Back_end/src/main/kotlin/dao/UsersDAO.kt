@@ -3,12 +3,13 @@ package dao
 import models.Users
 //import models.Rating
 import shared.SharedPaths
+import shared.SharedPaths.Companion.STRING_DE_CONEXAO_JDBC
 import java.sql.DriverManager
 
 class UsersDAO : GenericDAO {
     override fun pegarUm(id: Int): Any {
         //Cria uma conexão com o banco
-        val connection = DriverManager.getConnection(SharedPaths.STRING_DE_CONEXAO_JDBC)
+        val connection = DriverManager.getConnection(STRING_DE_CONEXAO_JDBC)
         //Cria um caminho para realizar queries sql no banco
         val sqlStatement = connection.createStatement()
         //Executa uma query de busca
@@ -47,7 +48,6 @@ class UsersDAO : GenericDAO {
                     )
                 )
             }
-
         }
         catch (exception:Exception){
             exception.printStackTrace()
