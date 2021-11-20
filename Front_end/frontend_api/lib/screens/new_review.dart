@@ -11,8 +11,8 @@ import 'package:frontend_api/widgets/form.dart';
 class NewReview extends StatelessWidget {
    const NewReview({Key? key, required this.currentUser, required this.currentGame}) : super(key: key);
 
-  final User currentUser;
-  final Game currentGame;
+  final UserModel currentUser;
+  final GameModel currentGame;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class NewReview extends StatelessWidget {
 
 class BodyReview extends StatelessWidget {
 
-  User currentUser;
-  Game currentGame;
+  UserModel currentUser;
+  GameModel currentGame;
 
 
   BodyReview(this.currentUser, this.currentGame);

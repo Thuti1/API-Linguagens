@@ -1,27 +1,24 @@
-// import 'dart:convert';
-//
-// import 'package:http/http.dart' as http;
-//
-// class API_Manager {
-//   Future<UsersModel> getUser() async {
-//     var client = http.Client();
-//     var usersModels = null;
-//
-//     try {
-//       var response = await client.get(Uri.http(
-//           'localhost:8080/ip do pc', 'oq vem depois da /(de conexao)'));
-//
-//       if (response.statusCode == 200) {
-//         var jsonString = response.body;
-//         //dps disso aqui ele foi no https://app.quicktype.io/ e botou o Json de saida pra cirar o model
-//         var jsonMap = jsonDecode(jsonString);
-//
-//         usersModel = UsersModel.fromJson(jsonMap);
-//       }
-//     }
-//     catch(Exception){
-//       return usersModels;
-//     }
-//     return usersModels;
-//   }
-// }
+import 'dart:convert';
+
+import 'package:frontend_api/models/game_model.dart';
+import 'package:http/http.dart' as http;
+
+class API_Manager {
+
+  static Future getGame() async {
+    return http.get(Uri.http("localhost:8080", "/Jogos"),);
+  }
+  static Future getReview() async {
+    return http.get(Uri.http("localhost:8080", "/Reviews"));
+  }
+  static Future<http.Response> postGame(Map <String,dynamic> currentGame) async {
+    var url = Uri.http("localhost:8080", "/Jogos");
+    var body = jsonEncode(currentGame);
+    var response = await http.post(url,headers: {"Content-Type": "application/json", "Access-Control-Allow-Origin" : "*" },body: body);
+
+    print("${response.statusCode}");
+    print("${response.body}");
+    return response;
+
+  }
+}

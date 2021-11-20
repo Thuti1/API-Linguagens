@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend_api/data/data.dart';
+import 'package:frontend_api/http/api_manager.dart';
 import 'package:frontend_api/models/game_model.dart';
 import 'package:frontend_api/models/review_model.dart';
 import 'package:frontend_api/models/user_model.dart';
@@ -19,7 +20,7 @@ class FormLogin extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController userController = TextEditingController();
 
-  Game currentGame;
+  GameModel currentGame;
   FormLogin(this.currentGame);
 
   @override
@@ -43,7 +44,7 @@ class FormLogin extends StatelessWidget {
               ]
           ), child: ElevatedButton(
           onPressed: () {
-            final User _currentUser = User(name: userController.text, email: emailController.text);
+            final UserModel _currentUser = UserModel(id: 0, name: userController.text, email: emailController.text);
             //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
             showNewReviewPage(context);
           },
@@ -63,7 +64,7 @@ class FormLogin extends StatelessWidget {
 
   }
   void showNewReviewPage(BuildContext context) {
-    final User currentUser = User(name: userController.text, email: emailController.text);
+    final UserModel currentUser = UserModel(id: 0, name: userController.text, email: emailController.text);
     //if(!users.contains(currentUser)) {users.add(currentUser);print("User adicionado");}
     Navigator.push(
       context,
@@ -124,8 +125,8 @@ class FormNewAccount extends StatelessWidget {
 class FormReview extends StatelessWidget {
 
 
-  User currentUser;
-  Game currentGame;
+  UserModel currentUser;
+  GameModel currentGame;
   FormReview(this.currentUser, this.currentGame);
 
   final classificationController = TextEditingController();
@@ -167,12 +168,13 @@ class FormReview extends StatelessWidget {
     );
   }
   void showReviewsPage(BuildContext context) {
-    Review currentReview = Review(
-        name:currentUser.name,
-        classification: double.tryParse(classificationController.text),
-        comments: descriptionController.text,
-        game: currentGame);
-   if(!reviews.contains(currentUser)) {reviews.add(currentReview);print("Review adicionada");}
+    ReviewModel currentReview = ReviewModel(
+        id: 0,
+        idName:0,//currentUser.text,
+       rating: double.tryParse(classificationController.text),
+        comment: descriptionController.text,
+        idGame: 0);//currentGame.text);
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ReviewsScreen(currentGame: currentGame,)),
@@ -229,11 +231,19 @@ class FormNewGame extends StatelessWidget {
     );
   }
   void showHomePage(BuildContext context){
-    Game currentGame = Game(
-        name:gameController.text,
-        description: descriptionController.text,
-        imageUrl: urlController.text);
-    if(!games.contains(currentGame)) {games.add(currentGame);print("Game adicionado");}
+    Map<GameModel,dynamic> toMap(){
+      GameModel currentGame;
+      return {
+
+      };
+    }
+    GameModel currentGame = GameModel(
+        id: 0,
+        name: gameController.text,
+        desc: descriptionController.text,
+        image: urlController.text);
+
+     API_Manager.postGame(currentGame.toMap());
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Home()),

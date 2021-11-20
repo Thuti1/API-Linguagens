@@ -9,6 +9,7 @@ import io.ktor.server.netty.*
 import plugins.*
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 
@@ -19,25 +20,35 @@ fun main(args: Array<String>) {
         install(ContentNegotiation){
             json()
         }
+        install(CORS) {
+            method(HttpMethod.Options)
+            anyHost()
+        }
+        val reviewDao = ReviewDAO()
+        reviewDao.deletar(1)
+        reviewDao.deletar(2)
+        reviewDao.deletar(3)
+
+        val gamesDao = GamesDAO()
+        gamesDao.deletar(5)
+        gamesDao.deletar(6)
+        gamesDao.deletar(7)
+        gamesDao.deletar(8)
 //        val gamesDao = GamesDAO()
 //        gamesDao.inserirUm(Games(3, "limao", "uma fruta verde", "LMAO.lol"))
         configureRouting()
     }.start(wait = true)
     //Cria um DAO para os produtos
-//    val gamesDao = GamesDAO()
-//    gamesDao.deletar(3)
-//    gamesDao.deletar(4)
+
 
 //    gamesDao.inserirUm(Games(3, "melancia", "uma fruta grande", "melan.cia"))
 //    var games = gamesDao.pegarTodosSeguro()
 //    for (game in games){
-//        println(game)
-//    }
+//       println(game)
+//   }
     val userDao = UsersDAO()
 //    userDao.inserirUm(Users(1, "max", "max@MAX"))
-    val reviewDao = ReviewDAO()
-//    reviewDao.deletar(1)
-//    reviewDao.deletar(2)
+
 //    reviewDao.inserirUm(Review(2, 2, 10.01, "Bom Demais", 6))
 //    var users = userDao.pegarTodosSeguro()
 //    for (user in users){
@@ -55,5 +66,6 @@ fun main(args: Array<String>) {
     //produtosDao.inserirVarios(listOf(
     //    Produto(0,"Clementine", 799.98, 1),
     //    Produto(0,"Listerine",15.99,80)))
+
 
 }

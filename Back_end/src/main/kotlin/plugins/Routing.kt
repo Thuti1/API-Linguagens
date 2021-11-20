@@ -7,6 +7,7 @@ import dao.GamesDAO
 import dao.ReviewDAO
 import dao.UsersDAO
 import io.ktor.http.*
+
 import models.Games
 
 fun Application.configureRouting() {
@@ -18,7 +19,7 @@ fun Application.configureRouting() {
             val gamesDao = GamesDAO()
             var games = gamesDao.pegarTodosSeguro()
             val game = games.lastIndex;
-            repeat(game) {call.respond(games)}
+             call.respond(games)
         }
         get("/Usuarios") {
             val usersDao = UsersDAO()
@@ -32,6 +33,12 @@ fun Application.configureRouting() {
             val review = reviews.lastIndex;
             repeat(review) {call.respond(reviews)}
         }
+        post("/Jogos"){
+            val gamesDao = GamesDAO()
+            var games = gamesDao.inserirUm(Games)
+            call.respond(games)
+        }
+
     }
 }
 

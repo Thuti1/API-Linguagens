@@ -39,7 +39,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
 
 class ReviewAppBar extends StatelessWidget with PreferredSizeWidget {
 
-  Game currentGame;
+  GameModel currentGame;
   ReviewAppBar(this.currentGame);
 
   @override

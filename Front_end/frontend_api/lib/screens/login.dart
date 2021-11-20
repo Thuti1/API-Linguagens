@@ -8,7 +8,7 @@ import 'package:frontend_api/widgets/form.dart';
 
 class Login extends StatelessWidget {
 
-  Game currentGame;
+  GameModel currentGame;
   Login(this.currentGame);
 
   @override
@@ -32,7 +32,7 @@ class Login extends StatelessWidget {
 
 class BodyLogin extends StatelessWidget {
 
-  Game currentGame;
+  GameModel currentGame;
   BodyLogin(this.currentGame);
 
   @override
