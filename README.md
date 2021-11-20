@@ -28,12 +28,10 @@ Implementar as classes de dados para cada tabela, tornando-os serializáveis.
 
 ###### Plugins
 O Routing é a classe kotlin que configura as rotas do site, configurando as solicitações GET e POST.
-* Quanto às solicitações GET, elas conectam ao banco e fazem as requisições através do front e back, porém a tabela "Reviews", por trabalhar com chaves estrangeiras, não fomos 
-* capazes de fazer sua visualização fosse correta no front, mais especificamente do id_name e id_game, que vêm de outras tabelas.*
-* Já as solicitações POST foram testadas, porém pareciam não conseguir fazer a inserção no banco, logo resolvemos manter somente "postGame". O grupo discutiu o possível 
-* problema, chegando à uma conclusão que o "currentGame", presente no front-end, apesar de ser sido transformado em JSON, Mapa ou objeto, ao ser passado para a solicitação POST 
-* do back-end no routing de "/Jogos" não foi reconhecido (dois exemplos foram "500 internal server error" e "ClassCastException" pedindo um obj. Companion). Imaginamos que 
-* estaríamos passando um tipo errado para a função em sua transferência.*
+
+_**Quanto às solicitações GET, elas conectam ao banco e fazem as requisições através do front e back, porém a tabela "Reviews", por trabalhar com chaves estrangeiras, não fomos capazes de fazer sua visualização fosse correta no front, mais especificamente do id_name e id_game, que vêm de outras tabelas.**_
+
+**_Já as solicitações POST foram testadas, porém pareciam não conseguir fazer a inserção no banco, logo resolvemos manter somente "postGame". O grupo discutiu o possível problema, chegando à uma conclusão que o "currentGame", presente no front-end, apesar de ser sido transformado em JSON, Mapa ou objeto, ao ser passado para a solicitação POST do back-end no routing de "/Jogos" não foi reconhecido (dois exemplos foram "500 internal server error" e "ClassCastException" pedindo um obj. Companion). Imaginamos que estaríamos passando um tipo errado para a função em sua transferência._**
 
 ###### Main
 Estabelece a conexão com o servidor e instala o json() para a serialização.
@@ -52,8 +50,10 @@ Adquirimos as informações através de diversos TextEditingController(), estes 
 
 Criamos uma tela para a visualização dos jogos presentes e outra para os reviews feitos.
 Ambos foram feitas a partir de um ListView.builder(). 
-*Quando os dados estavam conectados somente ao front-end, estavam funcionando corretamente. Porém, quando fomos realizar a conexão HTTP, não conseguimos adicionar os dados 
-inseridos no banco, apenas visualizá-los. Por este motivo foi necessário colocar os dados a partir do back-end para sua execução.*
+
+**_Quando os dados estavam conectados somente ao front-end, estavam funcionando corretamente. Porém, quando fomos realizar a conexão HTTP, não conseguimos adicionar os dados 
+inseridos no banco, apenas visualizá-los. Por este motivo foi necessário colocar os dados a partir do back-end para sua execução._**
+
 
 ![site em execução para visualização de dados](https://user-images.githubusercontent.com/71029970/142736079-625dd96c-685a-46aa-a9af-dea2628630de.jpg)
 
